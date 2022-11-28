@@ -1,0 +1,20 @@
+const express= require('express');
+const multer= require('multer');
+const route= express.Router();
+const user=require('../controller/users');
+const ind_user=require('../controller/ind_user');
+const update_user=require('../controller/update_user');
+const delete_user=require('../controller/delete_user');
+const image=require('../controller/image')
+const parser= require("body-parser");
+const jsonparser=parser.json();
+let upload= multer({dest:'./image'});
+let element=upload.single("avatar");
+route.get('/get_all_user',user.get);
+route.post('/create_user',jsonparser,user.post);
+route.get('/get_ind_user',jsonparser,ind_user.get);
+route.post('/update_user',jsonparser,update_user.post);
+route.post('/delete_user',delete_user.post);
+route.get('/photo',jsonparser,image.get);
+route.post("/image",element,image.post);
+module.exports=route;
